@@ -23,24 +23,21 @@
  *
  */
 
-package com.adkdevelopment.daggerinheritancetest.di
+package com.adkdevelopment.daggerinheritancetest.di.components
 
-import com.adkdevelopment.daggerinheritancetest.ui.dashboard.DashboardFragment
-import com.adkdevelopment.daggerinheritancetest.ui.home.HomeFragment
-import com.adkdevelopment.daggerinheritancetest.ui.notifications.NotificationsFragment
-import dagger.Module
-import dagger.android.ContributesAndroidInjector
+import com.adkdevelopment.daggerinheritancetest.App
+import com.adkdevelopment.daggerinheritancetest.di.AndroidScope
+import com.adkdevelopment.daggerinheritancetest.di.modules.FeaturesModule
+import dagger.Component
+import dagger.android.AndroidInjectionModule
+import dagger.android.AndroidInjector
 
-@Module
-abstract class FragmentsModule {
-
-    @ContributesAndroidInjector
-    abstract fun injectDashboardFragment(): DashboardFragment
-
-    @ContributesAndroidInjector
-    abstract fun injectHomeFragment(): HomeFragment
-
-    @ContributesAndroidInjector
-    abstract fun injectNotificationsFragment(): NotificationsFragment
-
-}
+@AndroidScope
+@Component(
+    modules = [
+        AndroidInjectionModule::class,
+        FeaturesModule::class
+    ],
+    dependencies = [CoreComponent::class]
+)
+interface AppComponent : AndroidInjector<App>

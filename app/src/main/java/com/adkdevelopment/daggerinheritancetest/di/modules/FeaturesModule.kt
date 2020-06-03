@@ -23,19 +23,13 @@
  *
  */
 
-package com.adkdevelopment.daggerinheritancetest.di
+package com.adkdevelopment.daggerinheritancetest.di.modules
 
-import com.adkdevelopment.daggerinheritancetest.App
-import dagger.Component
-import dagger.android.AndroidInjectionModule
-import dagger.android.AndroidInjector
+import dagger.Module
 
-@AndroidScope
-@Component(
-    modules = [
-        AndroidInjectionModule::class,
-        FeaturesModule::class
-    ],
-    dependencies = [AppComponent::class]
+@Module(
+    includes = [
+        ActivitiesModule::class,
+        FragmentsModule::class]
 )
-interface AppInheritComponent : AndroidInjector<App>
+abstract class FeaturesModule

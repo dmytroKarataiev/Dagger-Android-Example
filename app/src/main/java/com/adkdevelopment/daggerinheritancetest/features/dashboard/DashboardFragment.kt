@@ -23,7 +23,7 @@
  *
  */
 
-package com.adkdevelopment.daggerinheritancetest.ui.dashboard
+package com.adkdevelopment.daggerinheritancetest.features.dashboard
 
 import android.os.Bundle
 import android.util.Log

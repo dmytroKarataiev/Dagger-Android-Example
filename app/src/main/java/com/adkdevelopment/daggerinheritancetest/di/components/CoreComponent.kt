@@ -23,44 +23,30 @@
  *
  */
 
-package com.adkdevelopment.daggerinheritancetest.ui.home
+package com.adkdevelopment.daggerinheritancetest.di.components
 
-import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import com.adkdevelopment.daggerinheritancetest.R
+import android.content.Context
 import com.adkdevelopment.daggerinheritancetest.managers.StringProvider
-import dagger.android.support.DaggerFragment
-import javax.inject.Inject
+import dagger.BindsInstance
+import dagger.Component
+import javax.inject.Singleton
 
-class HomeFragment : DaggerFragment() {
+@Singleton
+@Component
+interface CoreComponent {
 
-    @Inject
-    lateinit var stringProvider: StringProvider
+    fun stringProvider(): StringProvider
 
-    private lateinit var homeViewModel: HomeViewModel
+    fun context(): Context
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        homeViewModel =
-            ViewModelProvider(this).get(HomeViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
-        val textView: TextView = root.findViewById(R.id.text_home)
-        homeViewModel.text.observe(viewLifecycleOwner, Observer {
-            textView.text = stringProvider.getString(R.string.app_name)
-        })
+    @Component.Builder
+    interface Builder {
 
-        Log.v("TAG", "Instance: $stringProvider")
+        @BindsInstance
+        fun application(application: Context): Builder
 
-        return root
+        fun build(): CoreComponent
+
     }
 
 }

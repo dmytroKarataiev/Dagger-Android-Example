@@ -23,30 +23,16 @@
  *
  */
 
-package com.adkdevelopment.daggerinheritancetest.di
+package com.adkdevelopment.daggerinheritancetest.features.notifications
 
-import android.content.Context
-import com.adkdevelopment.daggerinheritancetest.managers.StringProvider
-import dagger.BindsInstance
-import dagger.Component
-import javax.inject.Singleton
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 
-@Singleton
-@Component
-interface AppComponent {
+class NotificationsViewModel : ViewModel() {
 
-    fun stringProvider(): StringProvider
-
-    fun context(): Context
-
-    @Component.Builder
-    interface Builder {
-
-        @BindsInstance
-        fun application(application: Context): Builder
-
-        fun build(): AppComponent
-
+    private val _text = MutableLiveData<String>().apply {
+        value = "This is notifications Fragment"
     }
-
+    val text: LiveData<String> = _text
 }

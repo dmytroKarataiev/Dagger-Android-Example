@@ -23,13 +23,24 @@
  *
  */
 
-package com.adkdevelopment.daggerinheritancetest.di
+package com.adkdevelopment.daggerinheritancetest.di.modules
 
+import com.adkdevelopment.daggerinheritancetest.features.dashboard.DashboardFragment
+import com.adkdevelopment.daggerinheritancetest.features.home.HomeFragment
+import com.adkdevelopment.daggerinheritancetest.features.notifications.NotificationsFragment
 import dagger.Module
+import dagger.android.ContributesAndroidInjector
 
-@Module(
-    includes = [
-        ActivitiesModule::class,
-        FragmentsModule::class]
-)
-abstract class FeaturesModule
+@Module
+abstract class FragmentsModule {
+
+    @ContributesAndroidInjector
+    abstract fun injectDashboardFragment(): DashboardFragment
+
+    @ContributesAndroidInjector
+    abstract fun injectHomeFragment(): HomeFragment
+
+    @ContributesAndroidInjector
+    abstract fun injectNotificationsFragment(): NotificationsFragment
+
+}

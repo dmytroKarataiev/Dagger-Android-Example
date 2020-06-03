@@ -23,44 +23,44 @@
  *
  */
 
-package com.adkdevelopment.daggerinheritancetest
+package com.adkdevelopment.daggerinheritancetest.features.home
 
-import android.app.Application
+import android.os.Bundle
 import android.util.Log
-import com.adkdevelopment.daggerinheritancetest.di.components.DaggerAppComponent
-import com.adkdevelopment.daggerinheritancetest.di.components.DaggerCoreComponent
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.TextView
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.adkdevelopment.daggerinheritancetest.R
 import com.adkdevelopment.daggerinheritancetest.managers.StringProvider
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
+import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-class App : Application(), HasAndroidInjector {
+class HomeFragment : DaggerFragment() {
 
     @Inject
     lateinit var stringProvider: StringProvider
 
-    @Inject
-    lateinit var androidInjector: DispatchingAndroidInjector<Any>
+    private lateinit var homeViewModel: HomeViewModel
 
-    override fun androidInjector(): AndroidInjector<Any> {
-        return androidInjector
-    }
-
-    override fun onCreate() {
-        super.onCreate()
-
-        val coreComponent = DaggerCoreComponent.builder()
-            .application(this)
-            .build()
-
-        DaggerAppComponent.builder()
-            .coreComponent(coreComponent)
-            .build()
-            .inject(this)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        homeViewModel =
+            ViewModelProvider(this).get(HomeViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_home, container, false)
+        val textView: TextView = root.findViewById(R.id.text_home)
+        homeViewModel.text.observe(viewLifecycleOwner, Observer {
+            textView.text = stringProvider.getString(R.string.app_name)
+        })
 
         Log.v("TAG", "Instance: $stringProvider")
 
+        return root
     }
 
 }

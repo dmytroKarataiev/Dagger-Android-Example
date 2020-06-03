@@ -23,7 +23,7 @@
  *
  */
 
-package com.adkdevelopment.daggerinheritancetest.ui.notifications
+package com.adkdevelopment.daggerinheritancetest.features.notifications
 
 import android.os.Bundle
 import android.util.Log

@@ -23,7 +23,7 @@
  *
  */
 
-package com.adkdevelopment.daggerinheritancetest.di
+package com.adkdevelopment.daggerinheritancetest.di.modules
 
 import com.adkdevelopment.daggerinheritancetest.MainActivity
 import dagger.Module
